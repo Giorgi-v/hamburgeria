@@ -379,18 +379,19 @@ $(window).click(function(event) {
 //CHE RIMUOVE L'ELEMENTO
 
 $(".btn").click(function(){
-    var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
-    divCopiato.width("200px");
-    divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
-    divCopiato.attr("id","nuovoDiv")
-    divCopiato.attr("class","copiati")
-    $('.copiati').find('.btn').addClass('bottoniCopiati');
-    
-    //divCopiato.button.attr("id","tastoRimuovi")
-    //divCopiato.a.id("bottoneRimuovi")
-    $(".modal1-content").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
+    if($(this).parent().parent().parent().class == "modal1"){
+        $(".modal1-content").remove($(this).parent().parent())
+    }
+    else
+    {
+        var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
+        divCopiato.width("200px");
+        divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
+        //divCopiato.attr("class","copiati")
+        //$('.copiati').find('.btn').addClass('bottoniCopiati');
+        
+        //divCopiato.button.attr("id","tastoRimuovi")
+        //divCopiato.a.id("bottoneRimuovi")
+        $("#carrello").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
+    }
 });
-
-$("#bottoneResetta").click(function(){
-    $(".modal1-content").remove("#nuovoDivAggiunto")
-})

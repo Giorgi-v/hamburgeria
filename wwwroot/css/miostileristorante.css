@@ -18,6 +18,14 @@ h1 {
 font-size:1vw;
 }   
 
+.modal1-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px 2%;
+    grid-auto-flow: row;  
+}
+
 .card-deck {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -133,15 +141,15 @@ font-size:1vw;
     text-align: center;   
 }
 .modal1-content {
-    background-color: #fefefe;
-    padding: 20px;
     border: 1px solid #888;
     max-width: 1000px;
     max-height: 80%;
     overflow: auto;
     top: 10%;
-    margin-left: 15%;
+    margin-left: 10%;
     margin: 0 auto; /* Per allineare al centro orizzontalmente */
+    background-color:lightblue;
+    padding: 20px;
 }
 
 .modal2 {
@@ -188,4 +196,15 @@ font-size:1vw;
     margin: 0 auto;
     border: 5px solid white;
     box-sizing: border-box;
+}
+
+
+#carrello{
+    padding: 5px;
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px 2%;
+    grid-auto-flow: row;
 }
