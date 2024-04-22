@@ -452,52 +452,14 @@ $(window).click(function(event) {
 //POI DEVO CREARE UNA FUNZIONE SUL CLICK DEL BOTTONE DELL'ELEMENTO NEL CARRELLO
 //CHE RIMUOVE L'ELEMENTO
 
-/*
 $(".btn").click(function(){
 
-    if($(this).parent().parent().parent().id == "carrello"){
-        //$(".modal1-content").remove($(this).parent().parent().parent());
-        var divCopiato = $(this).parent().parent();
-        $("#carrello_panini_container").remove$(divCopiato);
-    }
-    else
-    {
-        var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
-        divCopiato.width("200px");
-        divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
-        //divCopiato.attr("class","copiati")
-        //$('.copiati').find('.btn').addClass('bottoniCopiati');
-        //divCopiato.button.attr("id","tastoRimuovi")
-        //divCopiato.a.id("bottoneRimuovi")
-        $("#carrello_panini_container").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
-    }
-});
-*/
+    //ORA HO UN PROBLEMA CON LE CARD PERSONALIZZABILI, PERCHè MI AGGIUNGE ANCHE LA LORO CARD..
+    //come la risolvo?
+    //quando clicco sul bottone di un personalizzabile deve aprirmi li modal (e lo fa)
 
-/*
-$(".btn").click(function(){
-    //if per vedere se il prodotto è già nel carrello scrive x2
-
-    if($(this).parent().parent().parent().hasClass("copiati")){
-        $(this).parent().parent().remove(); // Rimuovi la card dal carrello
-    } else {
-        var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
-        divCopiato.width("200px");
-        divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
-        divCopiato.addClass("copiati"); // Aggiungi la classe "copiati" alla card clonata
-        var btnRimuovi = $("<button></button>").text("Rimuovi"); // Crea un nuovo bottone per rimuovere la card
-        btnRimuovi.addClass("btn-rimuovi btn btn-primary"); // Aggiungi una classe al bottone per identificarlo
-        btnRimuovi.click(function() { // Aggiungi un gestore di eventi per rimuovere la card quando viene cliccato il bottone
-            $(this).parent().remove(); // Rimuovi la card dal carrello
-        });
-        divCopiato.append(btnRimuovi); // Aggiungi il nuovo bottone alla card
-        $("#carrello_panini_container").append(divCopiato); // Aggiungi la card clonata al carrello
-    }
-});
-*/
-
-$(".btn").click(function(){
     var card = $(this).parent().parent().clone(); 
+
     var priceText = card.find("a").text();// Trova il testo del prezzo nella card
     var price = parseFloat(priceText.replace("Euro ", "").replace(",", ".")); // Estrai il prezzo come numero float
 
