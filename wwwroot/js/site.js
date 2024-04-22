@@ -33,6 +33,7 @@ function CreaCard(){
     let nuovaCardFooterBtn = document.createElement('a');
     nuovaCardFooterBtn.classList.add("btn"); 
     nuovaCardFooterBtn.classList.add("btn-primary");
+    nuovaCardFooterBtn.classList.add(".open-modal1");
     nuovaCardFooterBtn.href = "#";
     let nuovaCardFooterBtnImg = document.createElement('img');
     nuovaCardFooterBtnImg.width = "30"; 
@@ -360,7 +361,7 @@ $(document).ready(function() {
 });
 
 
-// Apre e chiude il modal1
+// Apre e chiude il modal1 (CARRELLO)
 $('.open-modal1').click(function() {
     $('#myModal1').css('display', 'block');
 });
@@ -377,3 +378,19 @@ $(window).click(function(event) {
 //POI DEVO CREARE UNA FUNZIONE SUL CLICK DEL BOTTONE DELL'ELEMENTO NEL CARRELLO
 //CHE RIMUOVE L'ELEMENTO
 
+$(".btn").click(function(){
+    var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
+    divCopiato.width("200px");
+    divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
+    divCopiato.attr("id","nuovoDiv")
+    divCopiato.attr("class","copiati")
+    $('.copiati').find('.btn').addClass('bottoniCopiati');
+    
+    //divCopiato.button.attr("id","tastoRimuovi")
+    //divCopiato.a.id("bottoneRimuovi")
+    $(".modal1-content").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
+});
+
+$("#bottoneResetta").click(function(){
+    $(".modal1-content").remove("#nuovoDivAggiunto")
+})
