@@ -199,7 +199,7 @@ font-size:1vw;
 }
 
 
-#carrello{
+#carrello_panini_container{
     padding: 5px;
     margin: 15px;
     display: grid;
@@ -208,3 +208,40 @@ font-size:1vw;
     gap: 20px 2%;
     grid-auto-flow: row;
 }
+.total-section {
+    grid-column: 1 / span 4;   
+    background-color: white;
+}
+
+.quantity-container {
+    display: flex; /* Utilizza Flexbox */
+    align-items: center; /* Allinea verticalmente gli elementi al centro */
+}
+
+.quantity-container .quantityElement {
+    margin-right: 10px; /* Aggiunge spazio tra la scritta "Quantità" e i pulsanti */
+}
+
+.quantity-container .btn-plus,
+.quantity-container .btn-minus {
+    width: 30px; /* Imposta la larghezza dei pulsanti */
+    height: 30px; /* Imposta l'altezza dei pulsanti */
+    font-size: 16px; /* Imposta la dimensione del testo */
+    line-height: 30px; /* Centra verticalmente il testo */
+    padding: 0; /* Rimuove il padding */
+    margin-right: 5px; /* Aggiunge spazio tra i pulsanti */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    border: 1px solid #ccc; /* Aggiunge un bordo */
+    background-color: lightgrey; /* Imposta lo sfondo */
+}
+
+.quantity-container .btn-plus:hover,
+.quantity-container .btn-minus:hover {
+    background-color: #f0f0f0; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+.quantity-container .btn-plus:focus,
+.quantity-container .btn-minus:focus {
+    outline: none; /* Rimuove l'outline al focus */
+}
+

@@ -49,12 +49,53 @@ function CreaCard(){
     return nuovaCard;
 }
 
+function CreaCardCarrello(){
+    let nuovaCard = document.createElement('div');
+    nuovaCard.classList.add("card");
+
+    let nuovaCardImg = document.createElement('img');
+    nuovaCardImg.classList.add("card-img-top");
+    nuovaCardImg.src="";
+    //src e alt dell'immagine dipendono dal singolo cibo
+    nuovaCard.appendChild(nuovaCardImg);
+
+    let nuovaCardBody = document.createElement('div');
+    nuovaCardBody.classList.add("card-body");
+    let nuovaCardBodyTitle = document.createElement('h5');
+    nuovaCardBodyTitle.classList.add("card-title");
+    let nuovaCardBodyTitleText = document.createTextNode("nome");
+    nuovaCardBodyTitle.appendChild(nuovaCardBodyTitleText);
+    let nuovaCardBodyP = document.createElement('p');
+    nuovaCardBodyP.classList.add("card-text");
+    let nuovaCardBodyPText = document.createTextNode("ingredienti");
+    nuovaCardBodyP.appendChild(nuovaCardBodyPText);
+    nuovaCardBody.appendChild(nuovaCardBodyTitle);
+    nuovaCardBody.appendChild(nuovaCardBodyP);
+    nuovaCard.appendChild(nuovaCardBody);
+
+   
+    let nuovaCardFooter = document.createElement("div");
+    nuovaCardFooter.classList.add("card-footer");
+    let nuovaCardFooterBtn = document.createElement('a');
+    nuovaCardFooterBtn.classList.add("btn"); 
+    nuovaCardFooterBtn.classList.add("btn-primary");
+    nuovaCardFooterBtn.classList.add(".open-modal1");
+    nuovaCardFooterBtn.href = "#";
+    let nuovaCardFooterBtnText = document.createTextNode("Rimuovi");
+    nuovaCardFooterBtn.appendChild(nuovaCardFooterBtnText);
+    nuovaCardFooter.appendChild(nuovaCardFooterBtn);
+    nuovaCard.appendChild(nuovaCardFooter);
+
+    return nuovaCard;
+}
+
 function AggiungiCibo(cibo){
     
     let nuovaCard = CreaCard();
 
     //card creata
 
+    nuovaCard.id=""
     //setto i valori del cibo che voglio aggiungere
    $(nuovaCard).children('img')[0].src = cibo.immagine;
    $(nuovaCard).children('img')[0].alt = cibo.nome;
@@ -83,8 +124,29 @@ function AggiungiCibo(cibo){
    }
 }
 
+function AggiungiCiboCarrello(cibo){
+    
+    let nuovaCard = CreaCardCarrello();
+
+    //card creata
+    nuovaCard.setAttribute("id", cibo.id);
+    //nuovaCard.Id.Add(cibo.id);
+    //setto i valori del cibo che voglio aggiungere
+   $(nuovaCard).children('img')[0].src = cibo.immagine;
+   $(nuovaCard).children('img')[0].alt = cibo.nome;
+
+   nuovaCard.children[1].querySelector('h5').textContent = cibo.nome;
+   nuovaCard.children[1].querySelector('p').textContent = cibo.ingredienti;
+   nuovaCard.children[2].querySelector('a').textContent += cibo.prezzo;
+   nuovaCard.disponibile = cibo.disponibile;
+
+   document.getElementById("carrello_panini_container").appendChild(nuovaCard);
+}
+
+
 var panini = [
     ham1 = {
+        id: "ham1",
         tipo: "panino",
         nome: "Classico Americano", 
         ingredienti: "Bun, cheddar, hamburger, patatine, cipolla, insalata, pomodori, salsa BBQ",
@@ -94,6 +156,7 @@ var panini = [
     },
 
     ham2 = {
+        id: "ham2",
         tipo: "panino",
         nome: "Veggie Bun", 
         ingredienti: "Bun semolato, hamburger di zucca, insalata, formaggio veg, cipolla, pomodori",
@@ -103,6 +166,7 @@ var panini = [
     },
 
     ham3 = {
+        id: "ham3",
         tipo: "panino",
         nome: "Pollo Fritto", 
         ingredienti: "Bun, pollo fritto, insalata, maionese al pepe, formaggio fuso, patate",
@@ -112,6 +176,7 @@ var panini = [
     },
 
     ham4 = {
+        id: "ham4",
         tipo: "panino",
         nome: "Black Porchetta", 
         ingredienti: "Pane morbido integrale, porchetta di Ariccia, provola, insalata, cipolla rossa, broccoli",
@@ -121,6 +186,7 @@ var panini = [
     },
 
     ham5 = {
+        id: "ham5",
         tipo: "panino",
         nome: "Mediterraneo", 
         ingredienti: "Bun ai cereali, melanzane fritte, pomodori secchi, mozzarella di bufala, basilico",
@@ -130,6 +196,7 @@ var panini = [
     },
 
     ham6 = {
+        id: "ham6",
         tipo: "panino",
         nome: "Cotto e Mozzarella", 
         ingredienti: "Rosetta ai semi, prosciutto cotto arrosto, stracciata di bufala, erba cipollina",
@@ -141,6 +208,7 @@ var panini = [
 
 var fritture = [
     fritti1 = {
+        id: "fritti1",
         tipo: "frittura",
         nome: "Fritto Misto", 
         ingredienti: "Patate schiacciate e fritte, gamberi, calamari, polpettine di pesce, frutti di mare",
@@ -150,6 +218,7 @@ var fritture = [
     },
 
     fritti2 = {
+        id: "fritti2",
         tipo: "frittura",
         nome: "Mare Fritto", 
         ingredienti: "Gamberi, calamari, triglie e merluzzetti. Puoi scegliere se rimuovere un ingrediente.",
@@ -159,6 +228,7 @@ var fritture = [
     },
 
     fritti3 = {
+        id: "fritti3",
         tipo: "frittura",
         nome: "Patate fresche fritte", 
         ingredienti: "Puoi aggiungere diverse salse: BBQ, Lime e pepe rosa, Maionese fatta in casa..",
@@ -168,6 +238,7 @@ var fritture = [
     },
 
     fritti4 = {
+        id: "fritti4",
         tipo: "frittura",
         nome: "Fritto Verde", 
         ingredienti: "Fiori di zucca in pastella, ripieni di ricotta fresca e fritti.",
@@ -179,6 +250,7 @@ var fritture = [
 
 var taglieri = [
     tagliere1 = {
+        id: "tagliere1",
         tipo: "tagliere",
         nome: "Tagliere luxury", 
         ingredienti: "Salame blu, ricotta fresca, capicollo, bresaola, formaggi, frutta, olive, pane tostato, miele, mamellate, salse.",
@@ -188,6 +260,7 @@ var taglieri = [
     },
 
     tagliere2 = {
+        id: "tagliere2",
         tipo: "tagliere",
         nome: "Tagliere piccolo", 
         ingredienti: "Salame, prosciutto crudo, pancetta, grissini.",
@@ -197,6 +270,7 @@ var taglieri = [
     },
 
     tagliere3 = {
+        id: "tagliere3",
         tipo: "tagliere",
         nome: "Tagliere medio", 
         ingredienti: "Mortadella, prosciutto crudo, capicollo, pancetta, salame dolce, salame piccante, formaggi, olive.",
@@ -378,9 +452,13 @@ $(window).click(function(event) {
 //POI DEVO CREARE UNA FUNZIONE SUL CLICK DEL BOTTONE DELL'ELEMENTO NEL CARRELLO
 //CHE RIMUOVE L'ELEMENTO
 
+/*
 $(".btn").click(function(){
-    if($(this).parent().parent().parent().class == "modal1"){
-        $(".modal1-content").remove($(this).parent().parent())
+
+    if($(this).parent().parent().parent().id == "carrello"){
+        //$(".modal1-content").remove($(this).parent().parent().parent());
+        var divCopiato = $(this).parent().parent();
+        $("#carrello_panini_container").remove$(divCopiato);
     }
     else
     {
@@ -389,9 +467,108 @@ $(".btn").click(function(){
         divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
         //divCopiato.attr("class","copiati")
         //$('.copiati').find('.btn').addClass('bottoniCopiati');
-        
         //divCopiato.button.attr("id","tastoRimuovi")
         //divCopiato.a.id("bottoneRimuovi")
-        $("#carrello").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
+        $("#carrello_panini_container").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
     }
 });
+*/
+
+/*
+$(".btn").click(function(){
+    //if per vedere se il prodotto è già nel carrello scrive x2
+
+    if($(this).parent().parent().parent().hasClass("copiati")){
+        $(this).parent().parent().remove(); // Rimuovi la card dal carrello
+    } else {
+        var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
+        divCopiato.width("200px");
+        divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
+        divCopiato.addClass("copiati"); // Aggiungi la classe "copiati" alla card clonata
+        var btnRimuovi = $("<button></button>").text("Rimuovi"); // Crea un nuovo bottone per rimuovere la card
+        btnRimuovi.addClass("btn-rimuovi btn btn-primary"); // Aggiungi una classe al bottone per identificarlo
+        btnRimuovi.click(function() { // Aggiungi un gestore di eventi per rimuovere la card quando viene cliccato il bottone
+            $(this).parent().remove(); // Rimuovi la card dal carrello
+        });
+        divCopiato.append(btnRimuovi); // Aggiungi il nuovo bottone alla card
+        $("#carrello_panini_container").append(divCopiato); // Aggiungi la card clonata al carrello
+    }
+});
+*/
+
+$(".btn").click(function(){
+    var card = $(this).parent().parent().clone(); 
+    var priceText = card.find("a").text();// Trova il testo del prezzo nella card
+    var price = parseFloat(priceText.replace("Euro ", "").replace(",", ".")); // Estrai il prezzo come numero float
+
+    var productName = card.find(".card-title").text().trim(); // Ottieni il nome del prodotto dalla card
+
+    var existingCard = $("#carrello_panini_container").find(".card .card-title").filter(function() {
+        return $(this).text().trim() === productName;
+    }).closest(".card");
+    //controlla tra le card nel carrello se trova quel prodotto
+    if (existingCard.length > 0) {
+        existingCard.find(".btn-plus").click(); // Simula un clic sul pulsante "+" per aggiornare la quantità
+        updateTotalPrice(price); // Aggiorna il prezzo totale aggiungendo il prezzo della card aggiunta        
+    }    
+    else if(card.hasClass("copiati")){
+        card.remove(); // Rimuovi la card dal carrello
+        updateTotalPrice(-price); // Aggiorna il prezzo totale sottraendo il prezzo della card rimossa
+    } else {
+        var clonedCard = card.clone(); // Clona la card
+        clonedCard.width("200px").removeAttr("id").addClass("copiati"); // Imposta larghezza, rimuovi ID e aggiungi classe
+        var btnRemove = $("<button></button>").text("Rimuovi").addClass("btn-rimuovi btn btn-primary"); // Crea bottone Rimuovi
+        btnRemove.click(function() {
+            $(this).closest(".card").remove(); // Rimuovi la card quando il bottone viene cliccato
+            updateTotalPrice(-price); // Aggiorna il prezzo totale sottraendo il prezzo della card rimossa
+        });
+
+        var quantityContainer = $("<div></div>").addClass("quantity-container"); // Crea un elemento contenitore per la quantità e i pulsanti
+        var quantityElement = $("<div></div>").addClass("quantity").text("Quantità 1"); // Crea div della quantità
+        var quantityPlusButton = $("<button></button>").text("+").addClass("btn-plus btn btn-secondary"); // Crea bottone per incrementare la quantità
+        var quantityMinusButton = $("<button></button>").text("-").addClass("btn-minus btn btn-secondary"); // Crea bottone per decrementare la quantità
+        var totalPriceElement = $("<div></div>").addClass("total-price").text("Euro " + price.toFixed(2).replace(".", ",")); // Crea div del prezzo totale
+        
+        quantityPlusButton.click(function() {
+            var currentQuantity = parseInt($(this).siblings(".quantity").text().replace("Quantità ", ""));
+            var newQuantity = currentQuantity + 1;
+            $(this).siblings(".quantity").text("Quantità " + newQuantity); // Incrementa la quantità
+            var newPrice = price * newQuantity;
+            $(this).siblings(".total-price").text("Euro " + newPrice.toFixed(2).replace(".", ",")); // Aggiorna il prezzo totale
+            updateTotalPrice(price); // Aggiorna il prezzo totale aggiungendo il prezzo della card aggiunta
+            var priceButton = $(this).closest(".card").find(".btn-price");
+            priceButton.text("Euro " + newPrice.toFixed(2).replace(".", ",")); // Aggiorna il prezzo nel bottone del prezzo
+        });
+        
+        quantityMinusButton.click(function() {
+            var currentQuantity = parseInt($(this).siblings(".quantity").text().replace("Quantità ", ""));
+            if (currentQuantity > 1) {
+                var newQuantity = currentQuantity - 1;
+                $(this).siblings(".quantity").text("Quantità " + newQuantity); // Decrementa la quantità
+                var newPrice = price * newQuantity;
+                $(this).siblings(".total-price").text("Euro " + newPrice.toFixed(2).replace(".", ",")); // Aggiorna il prezzo totale
+                updateTotalPrice(-price); // Aggiorna il prezzo totale sottraendo il prezzo della card rimossa
+                var priceButton = $(this).closest(".card").find(".btn-price");
+                priceButton.text("Euro " + newPrice.toFixed(2).replace(".", ",")); // Aggiorna il prezzo nel bottone del prezzo
+            }
+        });
+        
+        quantityContainer.append(quantityElement, quantityMinusButton, quantityPlusButton, totalPriceElement); // Aggiungi l'elemento della quantità e i pulsanti al contenitore
+        clonedCard.append(btnRemove, quantityContainer); // Aggiungi il bottone rimuovi e il contenitore della quantità alla card clonata
+        $("#carrello_panini_container").append(clonedCard); // Aggiungi la card clonata al carrello
+        updateTotalPrice(price); // Aggiorna il prezzo totale aggiungendo il prezzo della card aggiunta
+    }
+});
+
+function updateTotalPrice(amount) {
+    var totalPriceText = $("#total-price").text(); // Trova il testo del prezzo totale attuale
+    var currentPrice = parseFloat(totalPriceText.replace("Euro ", "").replace(",", ".")); // Estrai il prezzo totale come numero float
+    var newPrice = currentPrice + amount; // Calcola il nuovo prezzo totale
+    $("#total-price").text("Euro " + newPrice.toFixed(2).replace(".", ",")); // Aggiorna il testo del prezzo totale nel carrello
+
+    if ($("#carrello_panini_container").find(".card").length === 0) {
+        $("#total-price").text("Euro 0,00"); // Azzeramento del totale quando non ci sono più elementi nel carrello
+    }
+}
+
+

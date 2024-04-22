@@ -41,14 +41,18 @@
               </button>
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <button class="carrello-btn open-modal1">Carrello</button>
-            <div id="myModal1" class="modal1">
-              <div class="modal1-content"> <!--finestra modale carrello -->
-                <div class="card-deck" id="carrello"></div>
+              <button class="carrello-btn open-modal1">Carrello</button>
+              <div id="myModal1" class="modal1">
+                <div class="modal1-content"> <!--finestra modale carrello -->
+                  <div class="card-deck" id="carrello_panini_container"></div>
+                  <div class="total-section">
+                    <span>TOTALE CARRELLO:</span>
+                    <span id="total-price">Euro 0,00</span> <!-- Totale del carrello -->
+                  </div>
+                  </div>
                 </div>
-              </div>
 
-              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              
                 <ul class="navbar-nav">
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" asp-controller="Menu" asp-action="Index" >MENU</a>
