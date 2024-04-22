@@ -40,7 +40,7 @@ function CreaCard(){
     nuovaCardFooterBtnImg.height = "30";
     nuovaCardFooterBtnImg.src = "../img/carrello.png";
     //let nuovaCardFooterBtnText = document.createElement("h6");
-    let nuovaCardFooterBtnText = document.createTextNode("Euro ");
+    let nuovaCardFooterBtnText = document.createTextNode("€"); //scritta euro tra parentesi
     nuovaCardFooterBtn.appendChild(nuovaCardFooterBtnText);
     nuovaCardFooterBtn.appendChild(nuovaCardFooterBtnImg);
     nuovaCardFooter.appendChild(nuovaCardFooterBtn);
@@ -183,7 +183,7 @@ var taglieri = [
         nome: "Tagliere luxury", 
         ingredienti: "Salame blu, ricotta fresca, capicollo, bresaola, formaggi, frutta, olive, pane tostato, miele, mamellate, salse.",
         immagine: "img/tagl1.webp",
-        prezzo: "30,00",
+        prezzo: "30.00",
         disponibile: true
     },
 
@@ -192,7 +192,7 @@ var taglieri = [
         nome: "Tagliere piccolo", 
         ingredienti: "Salame, prosciutto crudo, pancetta, grissini.",
         immagine: "img/tagl2.jpg",
-        prezzo: "10,00",
+        prezzo: "10.00",
         disponibile: true
     },
 
@@ -201,7 +201,7 @@ var taglieri = [
         nome: "Tagliere medio", 
         ingredienti: "Mortadella, prosciutto crudo, capicollo, pancetta, salame dolce, salame piccante, formaggi, olive.",
         immagine: "img/tagl3.jpg",
-        prezzo: "15,00",
+        prezzo: "15.00",
         disponibile: true
     }
 ];
@@ -379,19 +379,36 @@ $(window).click(function(event) {
 //CHE RIMUOVE L'ELEMENTO
 
 $(".btn").click(function(){
-    if($(this).parent().parent().parent().class == "modal1"){
-        $(".modal1-content").remove($(this).parent().parent())
-    }
-    else
-    {
+    var prezzoPattern = /\d+\.\d+/; // Espressione regolare per cercare un numero decimale nel testo del bottone
+    var prezzoString = $(this).text().match(prezzoPattern); // Trova il prezzo nel testo del bottone
+    var prezzoCard = parseFloat(prezzoString); // Converti il prezzo da stringa a numero
+
+    if($(this).parent().parent().hasClass("copiati")){
+        $(this).parent().parent().remove(); // Rimuovi la card dal carrello
+        aggiornaPrezzoTotale(-prezzoCard); // Sottrai il prezzo della card rimossa dal prezzo totale
+    } else {
         var divCopiato = $(this).parent().parent().clone(); // Clona il div da copiare
         divCopiato.width("200px");
         divCopiato.removeAttr("id"); // Rimuovi l'ID duplicato
-        //divCopiato.attr("class","copiati")
-        //$('.copiati').find('.btn').addClass('bottoniCopiati');
+        divCopiato.addClass("copiati"); // Aggiungi la classe "copiati" alla card clonata
         
-        //divCopiato.button.attr("id","tastoRimuovi")
-        //divCopiato.a.id("bottoneRimuovi")
-        $("#carrello").append(divCopiato); // Aggiungi il div copiato dentro la finestra modale
+        // Rimuovi il vecchio bottone dalla card clonata
+        divCopiato.find(".btn").remove();
+        
+        var btnRimuovi = $("<button></button>").text("Rimuovi"); // Crea un nuovo bottone per rimuovere la card
+        btnRimuovi.addClass("btn-rimuovi"); // Aggiungi una classe al bottone per identificarlo
+        btnRimuovi.click(function() { // Aggiungi un gestore di eventi per rimuovere la card quando viene cliccato il bottone
+            $(this).parent().remove(); // Rimuovi la card dal carrello
+            aggiornaPrezzoTotale(-prezzoCard); // Sottrai il prezzo della card rimossa dal prezzo totale
+        });
+        divCopiato.append(btnRimuovi); // Aggiungi il nuovo bottone alla card
+        $("#carrello").append(divCopiato); // Aggiungi la card clonata al carrello
+        aggiornaPrezzoTotale(prezzoCard); // Aggiungi il prezzo della card clonata al prezzo totale
     }
 });
+
+function aggiornaPrezzoTotale(prezzo) {
+    var prezzoTotale = parseFloat($("#valore-totale").text());
+    prezzoTotale += prezzo;
+    $("#valore-totale").text(prezzoTotale.toFixed(2)); // Aggiorna il prezzo totale nella sezione del carrello
+}
