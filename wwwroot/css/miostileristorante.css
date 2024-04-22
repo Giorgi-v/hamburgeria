@@ -1,0 +1,191 @@
+body {
+    background-image: url("../img/sfondo.jpg");
+}
+
+h1 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    background-color: white;
+}
+
+.descrizione_home  p {
+    color: rgb(249, 248, 241);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: x-large;    
+}
+
+.card-text {
+font-size:1vw;
+}   
+
+.card-deck {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px 2%;
+    grid-auto-flow: row;           
+}
+
+.card-deck>div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1vw;
+}
+
+.grid_container {
+    display: grid;
+    grid-template-areas:
+        "header"
+        "home"
+        "menu_panini"
+        "menu_frittura"
+        "menu_taglieri"
+        "footer";
+    grid-gap: 2%;
+    grid-template-rows: auto auto auto auto;
+    padding: 30px;
+    justify-content: center;
+}
+
+#menu_panini_container{grid-area: menu_panini;}
+#menu_frittura_container{grid-area: menu_frittura;}
+#menu_frittura_container{grid-area: menu_taglieri;}
+
+#menu_panini_container,
+#menu_frittura_container,
+#menu_taglieri_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 2%;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". . . ."
+        ". . . ."
+        ". . . ."
+        ". . . .";
+}
+
+#menu_panini_container>div,
+#menu_frittura_container>div,
+#menu_taglieri_container>div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1vw;
+}
+
+#sezioneTitolo {
+    display: flex;   
+}
+
+#testa {  
+    grid-area: header;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    margin: -30px;
+}
+
+.piede {
+    grid-area: footer;
+}
+
+.titolo {
+    grid-column: 1 / span 4;   
+}
+
+.home{
+    display: grid;
+    grid-area: home;
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr;
+}
+
+.descrizione_home
+{
+    text-align: left;
+    align-content: center;
+}
+
+.card-img-top {
+    width: 100%; /* Imposta la larghezza al 100% del contenitore padre */
+    height: auto; /* Imposta l'altezza su "auto" per mantenere le proporzioni originali */
+    max-width: 100%; /* Imposta la larghezza massima al 100% del contenitore padre */
+    max-height: 100%; /* Imposta l'altezza massima al 100% del contenitore padre */
+    display: block; /* Imposta l'elemento come blocco per centrarlo correttamente */
+    margin: 0 auto; /* Centra l'immagine orizzontalmente */
+    border: 5px solid white; /* Aggiunge una cornice bianca intorno all'immagine */
+    box-sizing: border-box; /* Imposta il box-sizing per includere il bordo nella larghezza e nell'altezza */
+}
+
+
+
+.modal1 {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;   
+}
+.modal1-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 1000px;
+    max-height: 80%;
+    overflow: auto;
+    top: 10%;
+    margin-left: 15%;
+    margin: 0 auto; /* Per allineare al centro orizzontalmente */
+}
+
+.modal2 {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;   
+}
+
+.modal2-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    max-width: 1000px;
+    max-height: 80%;
+    overflow: auto;
+    top: 10%;
+    margin-left: 15%;
+    margin: 0 auto; /* Per allineare al centro orizzontalmente */
+}
+
+#compilazionePanino {
+    width: 300px;
+}
+
+.sez_card,
+.sez_dropdown,
+.sez_salva {
+    margin: 0 auto; /* Per allineare al centro orizzontalmente */
+}
+
+.card-img-modal2 {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto;
+    border: 5px solid white;
+    box-sizing: border-box;
+}
