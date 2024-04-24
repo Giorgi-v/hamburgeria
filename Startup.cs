@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using hamburgeria.Models.Services.Application;
+using hamburgeria.Models.ViewModels;
 
 namespace hamburgeria
 {
@@ -31,8 +33,9 @@ namespace hamburgeria
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<IMenuService, MenuService>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

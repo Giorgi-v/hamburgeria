@@ -49,46 +49,6 @@ function CreaCard(){
     return nuovaCard;
 }
 
-function CreaCardCarrello(){
-    let nuovaCard = document.createElement('div');
-    nuovaCard.classList.add("card");
-
-    let nuovaCardImg = document.createElement('img');
-    nuovaCardImg.classList.add("card-img-top");
-    nuovaCardImg.src="";
-    //src e alt dell'immagine dipendono dal singolo cibo
-    nuovaCard.appendChild(nuovaCardImg);
-
-    let nuovaCardBody = document.createElement('div');
-    nuovaCardBody.classList.add("card-body");
-    let nuovaCardBodyTitle = document.createElement('h5');
-    nuovaCardBodyTitle.classList.add("card-title");
-    let nuovaCardBodyTitleText = document.createTextNode("nome");
-    nuovaCardBodyTitle.appendChild(nuovaCardBodyTitleText);
-    let nuovaCardBodyP = document.createElement('p');
-    nuovaCardBodyP.classList.add("card-text");
-    let nuovaCardBodyPText = document.createTextNode("ingredienti");
-    nuovaCardBodyP.appendChild(nuovaCardBodyPText);
-    nuovaCardBody.appendChild(nuovaCardBodyTitle);
-    nuovaCardBody.appendChild(nuovaCardBodyP);
-    nuovaCard.appendChild(nuovaCardBody);
-
-   
-    let nuovaCardFooter = document.createElement("div");
-    nuovaCardFooter.classList.add("card-footer");
-    let nuovaCardFooterBtn = document.createElement('a');
-    nuovaCardFooterBtn.classList.add("btn"); 
-    nuovaCardFooterBtn.classList.add("btn-primary");
-    nuovaCardFooterBtn.classList.add(".open-modal1");
-    nuovaCardFooterBtn.href = "#";
-    let nuovaCardFooterBtnText = document.createTextNode("Rimuovi");
-    nuovaCardFooterBtn.appendChild(nuovaCardFooterBtnText);
-    nuovaCardFooter.appendChild(nuovaCardFooterBtn);
-    nuovaCard.appendChild(nuovaCardFooter);
-
-    return nuovaCard;
-}
-
 function AggiungiCibo(cibo){
     
     let nuovaCard = CreaCard();
@@ -105,11 +65,9 @@ function AggiungiCibo(cibo){
    nuovaCard.children[2].querySelector('a').textContent += cibo.prezzo;
    nuovaCard.disponibile = cibo.disponibile;
 
-   //se è un panino personalizzato, lo aggiungo al carrello 
-   if(cibo.nome == "Personalizzato"){
-    document.getElementById("carrello_panini_container").appendChild(nuovaCard);
-   }
-   else{
+   //if(cibo.nome == "Personalizzato"){
+       // nuovaCard.classList.remove("card personalizzabile");
+   //}
         //ora la appendo nel card-deck dei panini / frittura / taglieri
         //in base al tipo
         if(cibo.tipo=="panino"){
@@ -122,27 +80,8 @@ function AggiungiCibo(cibo){
             document.getElementById("menu_taglieri_container").appendChild(nuovaCard);
         }
    }
-}
 
-function AggiungiCiboCarrello(cibo){
-    
-    let nuovaCard = CreaCardCarrello();
-
-    //card creata
-    nuovaCard.setAttribute("id", cibo.id);
-    //nuovaCard.Id.Add(cibo.id);
-    //setto i valori del cibo che voglio aggiungere
-   $(nuovaCard).children('img')[0].src = cibo.immagine;
-   $(nuovaCard).children('img')[0].alt = cibo.nome;
-
-   nuovaCard.children[1].querySelector('h5').textContent = cibo.nome;
-   nuovaCard.children[1].querySelector('p').textContent = cibo.ingredienti;
-   nuovaCard.children[2].querySelector('a').textContent += cibo.prezzo;
-   nuovaCard.disponibile = cibo.disponibile;
-
-   document.getElementById("carrello_panini_container").appendChild(nuovaCard);
-}
-
+var personalizzati = [];
 
 var panini = [
     ham1 = {
@@ -315,7 +254,7 @@ function alert_carrello(bottone)
 var bottoni_card = document.getElementsByClassName("btn btn-primary");
 for (var i=0;i <bottoni_card.length; i++ )
 {
-    //aggiungi if: vedi alert solo se il panino non è disponibile
+    //vedi alert solo se il panino non è disponibile
     if(bottoni_card[i].parentNode.parentNode.disponibile == false)
         eseguiAlert(i);
 }
@@ -447,16 +386,25 @@ $(window).click(function(event) {
 });
 
 
+
+
 //ORA DEVO COLLEGARE AI BOTTONI DELLE CARD
 //UN EVENTO CLICK CHE AGGINGE QUELL'ELEMENTO AL CARRELLO (CLONA LA CARD IN CUI SI TROVA IL BOTTONE)
 //POI DEVO CREARE UNA FUNZIONE SUL CLICK DEL BOTTONE DELL'ELEMENTO NEL CARRELLO
 //CHE RIMUOVE L'ELEMENTO
 
 $(".btn").click(function(){
-
     //ORA HO UN PROBLEMA CON LE CARD PERSONALIZZABILI, PERCHè MI AGGIUNGE ANCHE LA LORO CARD..
     //come la risolvo?
     //quando clicco sul bottone di un personalizzabile deve aprirmi li modal (e lo fa)
+    //ma non mi deve clonare la sua card se ancora non l'ho creato
+    
+    // Controllo se la card in cui si trova il bottone appartiene alla classe "personalizzato"
+    var cardP = $(this).closest(".card");
+    if (cardP.hasClass("card personalizzabile")) {
+        // La card appartiene alla classe "personalizzato"
+        return;
+    }
 
     var card = $(this).parent().parent().clone(); 
 
@@ -469,7 +417,7 @@ $(".btn").click(function(){
         return $(this).text().trim() === productName;
     }).closest(".card");
     //controlla tra le card nel carrello se trova quel prodotto
-    if (existingCard.length > 0) {
+    if (existingCard.length > 0) { //----però prodotto personalizzato potrebbe esisterne più di uno con lo stesso nome, come fai???
         existingCard.find(".btn-plus").click(); // Simula un clic sul pulsante "+" per aggiornare la quantità
         updateTotalPrice(price); // Aggiorna il prezzo totale aggiungendo il prezzo della card aggiunta        
     }    
@@ -478,6 +426,7 @@ $(".btn").click(function(){
         updateTotalPrice(-price); // Aggiorna il prezzo totale sottraendo il prezzo della card rimossa
     } else {
         var clonedCard = card.clone(); // Clona la card
+        
         clonedCard.width("200px").removeAttr("id").addClass("copiati"); // Imposta larghezza, rimuovi ID e aggiungi classe
         var btnRemove = $("<button></button>").text("Rimuovi").addClass("btn-rimuovi btn btn-primary"); // Crea bottone Rimuovi
         btnRemove.click(function() {
@@ -534,3 +483,11 @@ function updateTotalPrice(amount) {
 }
 
 
+//per i personalizzati: potrei controllare se la card è personalizzata
+//se la è, apro direttamente nella funzione (senza associarla al click) la finestra modale
+/*function apriFinestraModale() {
+    $('#myModal').modal('show'); // Mostra la finestra modale con ID "myModal"
+}
+//e poi creo il panino e salvo la card, prendo questa card salvata da qualche parte
+//e poi la uso come ClonedCard nella funzione, in modo che me la mette nel carrello con tutte le modifiche necessarie
+*/
