@@ -21,5 +21,6 @@ namespace hamburgeria.Models.ViewModels
         //public Money Prezzo {get; set;}
         public string Prezzo {get; set;}
         public bool Disponibile {get; set;}
+        public bool IsInCarrello {get; set;}
     }
 }

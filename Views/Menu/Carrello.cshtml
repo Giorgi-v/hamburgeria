@@ -1,0 +1,17 @@
+@model List<MenuViewModel>        
+        
+        <div class="card-deck" id="menu_panini_container">
+          <div class="titolo"><h1><br>I nostri panini <br><img src="img/logo.png"> </h1></div>
+          @foreach (MenuViewModel prodotto in Model)
+          {
+            <div class="card" id="@prodotto.Id">    
+              <img src="@prodotto.ImgPath" class="card-img-top" alt="@prodotto.Nome">
+              <div class="card-body">
+                <h5 class="card-title">@prodotto.Nome</h5>
+                <p class="card-text">@prodotto.Ingredienti</p>
+                </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-primary open-modal1" asp-controller="Menu" asp-action="Carrello" asp-route-id="@Prodotto.Id"><img src="img/add.png" width="30" height="30">@prodotto.Prezzo</a>
+              </div> 
+            </div>
+          }

@@ -27,6 +27,7 @@ namespace hamburgeria.Models.Services.Application
                     //Prezzo = "new Money(Currency.EUR, rand.NextDouble() > 0.5 ? price : price - 1)",
                     Prezzo = "Euro 10,00",
                     Disponibile = true,
+                    IsInCarrello = false,
                 };
                 menuList.Add(prodotto);
             } 

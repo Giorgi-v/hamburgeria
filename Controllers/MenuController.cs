@@ -12,13 +12,13 @@ namespace hamburgeria.Controllers
 {
     public class MenuController : Controller
     {
-        private readonly IMenuService menuService; //oggetto che deve essere automaticamente iniettato da asp.netcore 
-        //quando viene invocato questo controller
-        //è una interfaccia per realizzare il disaccoppiamento debole (dependency injection)
-        public MenuController(IMenuService menuService)
+        private readonly IMenuService menuService; 
+        private readonly ICarrelloService carrelloService; 
+        public MenuController(IMenuService menuService, ICarrelloService carrelloService)
         {
             //verrà iniettato automaticamente un oggetto di una classe che implementa l'interfaccia ICourseService
             this.menuService = menuService;
+            this.carrelloService = carrelloService;
         }
 
         public IActionResult Index()
@@ -28,6 +28,18 @@ namespace hamburgeria.Controllers
             return View(menu); //ritorna la lista di tutti i prodotti del menu
         }
 
+        public IActionResult Carrello(int id)
+        {
+            ViewData["Title"] = "CARRELLO";
+
+             //se gli passo un id, aggiungo il prodotto al carrello
+            if(id != 0){
+                carrelloService.AggiungiAlCarrello(id);
+            }
+
+            List<MenuViewModel> carrello = carrelloService.GetCarrello();
+            return View(carrello); //ritorna la lista di tutti i prodotti del menu che sono stati aggiunti al carrello
+        }
 
         public IActionResult About()
         {

@@ -36,6 +36,7 @@ namespace hamburgeria
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddTransient<IMenuService, MenuService>(); 
+            services.AddTransient<ICarrelloService, CarrelloService>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
