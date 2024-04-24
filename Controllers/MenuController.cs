@@ -32,9 +32,13 @@ namespace hamburgeria.Controllers
         {
             ViewData["Title"] = "CARRELLO";
 
+            List<MenuViewModel> menu = menuService.GetMenu();
              //se gli passo un id, aggiungo il prodotto al carrello
             if(id != 0){
-                carrelloService.AggiungiAlCarrello(id);
+                foreach(MenuViewModel prodotto in menu){
+                    if(prodotto.Id == id)
+                       carrelloService.AggiungiAlCarrello(prodotto);
+                }
             }
 
             List<MenuViewModel> carrello = carrelloService.GetCarrello();

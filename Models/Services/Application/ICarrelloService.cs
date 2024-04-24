@@ -9,6 +9,6 @@ namespace hamburgeria.Models.Services.Application
     public interface ICarrelloService
     {
         List<MenuViewModel> GetCarrello();
-        void AggiungiAlCarrello(int id);
+        void AggiungiAlCarrello(MenuViewModel prodotto);
     }
 }
