@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using hamburgeria.Models;
 using hamburgeria.Models.Services.Application;
 using hamburgeria.Models.ViewModels;
+using Newtonsoft.Json;
+using hamburgeria.Extensions;
+using Microsoft.AspNetCore.Http;
 
 namespace hamburgeria.Controllers
 {
@@ -24,14 +27,16 @@ namespace hamburgeria.Controllers
         public IActionResult Index()
         {
             ViewData["Title"] = "MENU";
+            HttpContext.Session.SetObject("SessionMenu", menuService.GetMenu());
+
             List<MenuViewModel> menu = menuService.GetMenu();
             return View(menu); //ritorna la lista di tutti i prodotti del menu
         }
 
+/*
         public IActionResult Carrello(int id)
         {
             ViewData["Title"] = "CARRELLO";
-
             List<MenuViewModel> menu = menuService.GetMenu();
              //se gli passo un id, aggiungo il prodotto al carrello
             if(id != 0){
@@ -40,10 +45,9 @@ namespace hamburgeria.Controllers
                        carrelloService.AggiungiAlCarrello(prodotto);
                 }
             }
-
             List<MenuViewModel> carrello = carrelloService.GetCarrello();
             return View(carrello); //ritorna la lista di tutti i prodotti del menu che sono stati aggiunti al carrello
-        }
+        }*/
 
         public IActionResult About()
         {

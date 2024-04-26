@@ -31,8 +31,8 @@ namespace hamburgeria.Models.Services.Application
                 };
                 menuList.Add(prodotto);
             } 
-            return menuList; 
-        }
+            return menuList;
+        } 
 
         /*
         //metodo che recupera i dettagli di un corso, dato l'id specifico

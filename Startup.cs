@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using hamburgeria.Models.Services.Application;
 using hamburgeria.Models.ViewModels;
+using hamburgeria.Extensions;
 
 namespace hamburgeria
 {
@@ -26,6 +27,15 @@ namespace hamburgeria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add distributed memory cache for session
+            services.AddDistributedMemoryCache();
+
+            // Configure session options
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10); // Set session timeout
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -55,6 +65,8 @@ namespace hamburgeria
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            //app.Usersession();
+            app.UseSession(); 
 
             app.UseMvc(routes =>
             {
