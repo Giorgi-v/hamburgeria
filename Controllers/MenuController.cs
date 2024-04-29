@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using hamburgeria.Models;
 using hamburgeria.Models.Services.Application;
 using hamburgeria.Models.ViewModels;
-using Newtonsoft.Json;
-using hamburgeria.Extensions;
+
+
 using Microsoft.AspNetCore.Http;
 
 namespace hamburgeria.Controllers
@@ -16,18 +16,17 @@ namespace hamburgeria.Controllers
     public class MenuController : Controller
     {
         private readonly IMenuService menuService; 
-        private readonly ICarrelloService carrelloService; 
-        public MenuController(IMenuService menuService, ICarrelloService carrelloService)
+        //private readonly ICarrelloService carrelloService; 
+        public MenuController(IMenuService menuService)
         {
             //verrà iniettato automaticamente un oggetto di una classe che implementa l'interfaccia ICourseService
             this.menuService = menuService;
-            this.carrelloService = carrelloService;
         }
 
         public IActionResult Index()
         {
             ViewData["Title"] = "MENU";
-            HttpContext.Session.SetObject("SessionMenu", menuService.GetMenu());
+           
 
             List<MenuViewModel> menu = menuService.GetMenu();
             return View(menu); //ritorna la lista di tutti i prodotti del menu
@@ -68,10 +67,7 @@ namespace hamburgeria.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
+       
     }
 }

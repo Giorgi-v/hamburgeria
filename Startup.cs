@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 using hamburgeria.Models.Services.Application;
-using hamburgeria.Models.ViewModels;
-using hamburgeria.Extensions;
+using hamburgeria.Models.Services.Infrastractures;
 
 namespace hamburgeria
 {
@@ -27,14 +27,6 @@ namespace hamburgeria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add distributed memory cache for session
-            services.AddDistributedMemoryCache();
-
-            // Configure session options
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(10); // Set session timeout
-            });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -43,10 +35,10 @@ namespace hamburgeria
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
 
-            services.AddTransient<IMenuService, MenuService>(); 
-            services.AddTransient<ICarrelloService, CarrelloService>(); 
+            services.AddTransient<IMenuService, AdoNetMenuService>(); 
+            services.AddTransient<IDatabaseAccessor, SqliteDatabaseAccessor>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,8 +57,7 @@ namespace hamburgeria
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            //app.Usersession();
-            app.UseSession(); 
+            //app.Usersession(); 
 
             app.UseMvc(routes =>
             {
