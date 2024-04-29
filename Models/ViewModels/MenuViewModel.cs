@@ -14,13 +14,16 @@ namespace hamburgeria.Models.ViewModels
     public class MenuViewModel
     {
         public int Id {get; set;}
-        public string Tipo {get; set;}
         public string ImgPath {get; set;}
         public string Nome {get; set;}
         public string Ingredienti {get; set;}
         //public Money Prezzo {get; set;}
         public string Prezzo {get; set;}
-        public bool Disponibile {get; set;}
-        public bool IsInCarrello {get; set;}
+
+    }
+    public static MenuViewModel 
+    FromDataRow(dataRow paninoRow)
+    {
+        Nome = Convert.ToString(paninoRow[""]);
     }
 }
